@@ -35,6 +35,6 @@ It seems like our delete button for employees isn't working! When items are sele
 
 We want users to be able to place orders after selecting items and for it to be stored in redux. Can you add a button for placing orders and create a redux action for placing orders?
 
-## Task 7:
+### Task 7:
 
 Can you create a page for the customers to view the orders they've placed?

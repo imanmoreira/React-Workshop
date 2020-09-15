@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
 // import { userReducer, UserState } from "./userReducer";
 // import { SchedulesState, schedulesReducer } from "./schedulesReducer";
-// import { ScheduleState, scheduleReducer } from "./scheduleReducer";
+import { MenuState, menuReducer } from "./menuReducer";
 // import {
 //   MajorApiState,
 //   PlansApiState,
@@ -10,7 +10,7 @@ import { combineReducers } from "redux";
 // } from "./apiReducer";
 
 export interface AppState {
-  // schedule: ScheduleState;
+  menu: MenuState;
   // user: UserState;
   // majorState: MajorApiState;
   // plansState: PlansApiState;
@@ -18,7 +18,7 @@ export interface AppState {
 }
 
 export const rootReducer = combineReducers({
-  // schedule: scheduleReducer,
+  menu: menuReducer,
   // user: userReducer,
   // majorState: majorsReducer,
   // plansState: plansReducer,

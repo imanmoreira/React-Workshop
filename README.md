@@ -1,48 +1,32 @@
-<<<<<<< HEAD
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Commands to know
 
-## Available Scripts
+### `yarn install`
 
-In the project directory, you can run:
+Use `yarn install` to download all of the dependencies needed to run the web app
 
 ### `yarn start`
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Use `yarn start` to start the application
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## List of Goals
 
-### `yarn test`
+### Task 1:
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+The Navigation Bar should be up and running but it's having a weird bug... for some reason when you click the button it isn't doing anything. Can you look into how to make sure the list opens properly?
+This might be useful: https://material-ui.com/components/menus/
 
-### `yarn build`
+### Task 2:
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Users should be able to navigate back to the main page but right now they can't. Could you add a button to the Navigation bar that directs them back to the home page?
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+### Task
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Right now
 
-### `yarn eject`
+### Task 3:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Right now when users are selecting items with the checkboxes, they aren't actually being selected properly... We want the users to be able to select specific menu items. The items should be added to the state so customers will be able to place an order after! This will also allow employees to delete certain items off the menu!
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Task 4:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-=======
-# Menu
->>>>>>> 26beec5fdbd584b8c3d95d63a34b2d3976725ff2
+It seems like our delete button isn't working! When items are selected, the delete button shows up but it isn't doing anything. Can you look into how that can be fixed?

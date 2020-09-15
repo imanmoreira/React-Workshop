@@ -1,4 +1,4 @@
-## Commands to know
+## Commands to run for testing on dev environment
 
 ### `yarn install`
 

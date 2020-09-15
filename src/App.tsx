@@ -7,6 +7,7 @@ import { Store } from "redux";
 import { Home } from "./Home/Home";
 import { Header } from "./Home/NavigationBar";
 import { Menu } from "./Pages/Menu";
+import { Orders } from "./Pages/Orders";
 import "./App.css";
 import styled from "styled-components";
 
@@ -29,12 +30,11 @@ export const App = ({
           <PageContainer>
             <Switch>
               <Route path="/customer/menu" component={Menu} />
-              {/* <Route path="/employee/orders" component={Home} /> */}
               <Route
                 path="/employee/menu"
                 render={() => <Menu employeeView={true}></Menu>}
               />
-              {/* <Route path="/customer/orders" component={Home} /> */}
+              <Route path="/customer/orders" component={Orders} />
               <Route path="/" component={Home} />
             </Switch>
           </PageContainer>

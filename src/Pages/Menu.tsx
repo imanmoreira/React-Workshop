@@ -1,5 +1,4 @@
 import React from "react";
-import { withRouter, RouteComponentProps } from "react-router-dom";
 import {
   TableHead,
   TableRow,
@@ -46,20 +45,25 @@ interface MenuProps {
 
 interface MenuState {
   selectedItems: MenuItem[];
+  isModalVisible: boolean;
 }
 
-type Props = MenuProps & ReduxMenuProps; //& RouteComponentProps;
+type Props = MenuProps & ReduxMenuProps;
 
 class MenuComponent extends React.Component<Props, MenuState> {
-  constructor(props: any) {
+  constructor(props: Props) {
     super(props);
 
     this.state = {
       selectedItems: [],
+      isModalVisible: false,
     };
   }
 
   renderRow(menuItem: MenuItem) {
+    /**
+     * **TODO** Task 4
+     */
     return (
       <TableRow key={menuItem.name}>
         <TableCell padding="checkbox">
@@ -99,6 +103,9 @@ class MenuComponent extends React.Component<Props, MenuState> {
   }
 
   renderEmployeeButtons(count: number) {
+    /**
+     * **TODO** Task 5
+     */
     return (
       <ButtonContainer>
         {count ? (
@@ -109,7 +116,10 @@ class MenuComponent extends React.Component<Props, MenuState> {
           </Tooltip>
         ) : (
           <Tooltip title="Add Item">
-            <IconButton aria-label="add">
+            <IconButton
+              aria-label="add"
+              onClick={() => this.setState({ isModalVisible: true })}
+            >
               <AddIcon />
             </IconButton>
           </Tooltip>
@@ -129,9 +139,17 @@ class MenuComponent extends React.Component<Props, MenuState> {
         </TableRow>
       );
     }
+    /**
+     * **TODO** TASK 1
+     */
     return (
       <>
-        <AddMenuItem visible={true} handleClose={() => {}}></AddMenuItem>
+        <AddMenuItem
+          visible={this.state.isModalVisible}
+          handleClose={() => {
+            this.setState({ isModalVisible: false });
+          }}
+        ></AddMenuItem>
         <MenuContainer>
           <Paper>
             {this.renderToolBar(
@@ -152,6 +170,9 @@ class MenuComponent extends React.Component<Props, MenuState> {
             </TableContainer>
           </Paper>
         </MenuContainer>
+        {/**
+         * **TODO** Task 6
+         */}
       </>
     );
   }

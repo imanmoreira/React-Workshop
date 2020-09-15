@@ -104,6 +104,9 @@ export class AddMenuItemModal extends React.Component<
   }
 
   render() {
+    /**
+     * **TODO** Task 3
+     */
     return (
       <Modal
         style={{ outline: "none" }}

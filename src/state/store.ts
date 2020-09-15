@@ -3,7 +3,7 @@ import thunk from "redux-thunk";
 import { logger } from "redux-logger";
 import { rootReducer, AppState } from "./reducers/state";
 import { persistStore, persistReducer } from "redux-persist";
-import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
+import storage from "redux-persist/lib/storage";
 import { Store, AnyAction } from "redux";
 
 const persistConfig = {

@@ -6,7 +6,11 @@ export const addMenuItem = createAction(
   (menuItem: MenuItem) => ({ menuItem })
 )();
 
-export const removeMenuItem = createAction(
-  "menu/REMOVE_MENU_ITEM",
-  (menuItem: MenuItem) => ({ menuItem })
+export const deleteMenuItems = createAction(
+  "menu/DELETE_MENU_ITEM",
+  (menuItems: MenuItem[]) => ({ menuItems })
 )();
+
+/**
+ * **TODO** Task 6
+ */

@@ -1,6 +1,5 @@
 import React from "react";
 import { MenuButton } from "../Components/MenuButton";
-// import { Button } from "@material-ui/core";
 import styled from "styled-components";
 
 const MENU_OPTIONS = ["Menu", "Orders"];
@@ -22,8 +21,8 @@ class HeaderComponent extends React.Component<any> {
      */
     return (
       <HeaderStyle>
-        <MenuButton text="Employee" menuOptions={MENU_OPTIONS} />
-        <MenuButton text="Customer" menuOptions={MENU_OPTIONS} />
+        <MenuButton text="Employee" menuOptions={["Menu"]} />
+        <MenuButton text="Customer" menuOptions={["Menu", "Orders"]} />
       </HeaderStyle>
     );
   }

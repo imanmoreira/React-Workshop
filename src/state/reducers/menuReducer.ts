@@ -2,7 +2,11 @@ import { MenuItem } from "../../model/types";
 import { MenuAction } from "../actions/";
 import produce from "immer";
 import { getType } from "typesafe-actions";
-import { addMenuItem } from "../actions/menuActions";
+import { addMenuItem, deleteMenuItems } from "../actions/menuActions";
+
+/**
+ * **TODO** Task 6
+ */
 
 export interface MenuState {
   menuItems: MenuItem[];
@@ -26,6 +30,11 @@ export const menuReducer = (
         draft.menuItems.push(menuItem);
 
         return draft;
+      }
+      case getType(deleteMenuItems): {
+        /**
+         * **TODO** Task 5
+         */
       }
     }
   });

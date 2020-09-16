@@ -21,6 +21,7 @@ class HeaderComponent extends React.Component<any> {
      */
     return (
       <HeaderStyle>
+        <MenuButton text="Home" menuOptions={["Home"]} />
         <MenuButton text="Employee" menuOptions={["Menu"]} />
         <MenuButton text="Customer" menuOptions={["Menu", "Orders"]} />
       </HeaderStyle>

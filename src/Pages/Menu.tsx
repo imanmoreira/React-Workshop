@@ -29,6 +29,7 @@ import { AddMenuItem } from "../Components/AddMenuItemModal";
 const MenuContainer = styled.div`
   min-height: 90vh;
   margin: 0 15% 0 15%;
+  background-color: red;
 `;
 
 const ButtonContainer = styled.div`

@@ -23,14 +23,18 @@ class MenuButtonComponent extends React.Component<
     };
   }
   processMenuItems(options: string[]) {
-    return options.map((option) => (
-      <MenuItem
-        component={Link}
-        to={`/${this.props.text.toLowerCase()}/${option.toLowerCase()}`}
-      >
-        {option}
-      </MenuItem>
-    ));
+    return options.map((option) => {
+      const to =
+        option.toLowerCase() === "home"
+          ? ""
+          : `/${this.props.text.toLowerCase()}/${option.toLowerCase()}`;
+
+      return (
+        <MenuItem component={Link} to={to}>
+          {option}
+        </MenuItem>
+      );
+    });
   }
 
   handleClick(event: React.MouseEvent<HTMLButtonElement>) {

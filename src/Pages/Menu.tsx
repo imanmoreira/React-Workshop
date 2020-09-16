@@ -65,11 +65,24 @@ class MenuComponent extends React.Component<Props, MenuState> {
     /**
      * **TODO** Task 4
      */
+
+    const onChange = (event:React.ChangeEvent<HTMLInputElement>) => {
+      if (event.target.checked) {
+        this.setState({ 
+          selectedItems: [...this.state.selectedItems, menuItem],
+        })      
+      } else {
+        this.setState({ 
+          selectedItems: [...this.state.selectedItems].filter((item) => item != menuItem),
+        }) 
+      }
+      }; 
+     
     return (
       <TableRow key={menuItem.name}>
         <TableCell padding="checkbox">
           <Checkbox
-            onChange={() => {}}
+            onChange= {onChange}
             inputProps={{ "aria-labelledby": menuItem.name }}
             icon={<CheckBoxOutlineBlankIcon style={{ fontSize: 20 }} />}
             checkedIcon={
@@ -143,6 +156,7 @@ class MenuComponent extends React.Component<Props, MenuState> {
     /**
      * **TODO** TASK 1
      */
+
     return (
       <>
         <AddMenuItem

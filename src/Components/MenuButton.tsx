@@ -34,9 +34,9 @@ class MenuButtonComponent extends React.Component<
   }
 
   handleClick(event: React.MouseEvent<HTMLButtonElement>) {
-    /**
-     * **TODO** TASK 1
-     */
+    this.setState({
+      anchorEl: event.currentTarget,
+    });
   }
 
   handleClose() {

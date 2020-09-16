@@ -29,7 +29,6 @@ import { AddMenuItem } from "../Components/AddMenuItemModal";
 const MenuContainer = styled.div`
   min-height: 90vh;
   margin: 0 15% 0 15%;
-  background-color: red;
 `;
 
 const ButtonContainer = styled.div`
@@ -61,28 +60,34 @@ class MenuComponent extends React.Component<Props, MenuState> {
     };
   }
 
+  onChange(menuItem: MenuItem, event: React.ChangeEvent<HTMLInputElement>) {
+    console.log(this.state.selectedItems.length);
+
+    if (event.target.checked) {
+      this.setState({
+        selectedItems: [...this.state.selectedItems, menuItem],
+      });
+    } else if (!event.target.checked) {
+      this.setState({
+        selectedItems: [...this.state.selectedItems].filter(
+          (item) => item != menuItem
+        ),
+      });
+    }
+  }
+
   renderRow(menuItem: MenuItem) {
     /**
      * **TODO** Task 4
      */
 
-    const onChange = (event:React.ChangeEvent<HTMLInputElement>) => {
-      if (event.target.checked) {
-        this.setState({ 
-          selectedItems: [...this.state.selectedItems, menuItem],
-        })      
-      } else {
-        this.setState({ 
-          selectedItems: [...this.state.selectedItems].filter((item) => item != menuItem),
-        }) 
-      }
-      }; 
-     
     return (
       <TableRow key={menuItem.name}>
         <TableCell padding="checkbox">
           <Checkbox
-            onChange= {onChange}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+              this.onChange(menuItem, event)
+            }
             inputProps={{ "aria-labelledby": menuItem.name }}
             icon={<CheckBoxOutlineBlankIcon style={{ fontSize: 20 }} />}
             checkedIcon={
@@ -143,7 +148,7 @@ class MenuComponent extends React.Component<Props, MenuState> {
   }
 
   render() {
-    const menuItems = this.props.menuItems.map(this.renderRow);
+    const menuItems = this.props.menuItems.map(this.renderRow.bind(this));
     while (menuItems.length < 10) {
       menuItems.push(
         <TableRow>

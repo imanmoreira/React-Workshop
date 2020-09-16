@@ -32,9 +32,8 @@ export const menuReducer = (
         return draft;
       }
       case getType(deleteMenuItems): {
-        /**
-         * **TODO** Task 5
-         */
+        const { menuItems } = action.payload;
+        draft.menuItems.filter((item: MenuItem) => !menuItems.includes(item));
       }
     }
   });

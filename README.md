@@ -1,23 +1,27 @@
 ## Commands to run for testing on dev environment
 
-### `yarn install`
+### Setup Commands
+
+If you don't have yarn installed -- run `npm install yarn -g`
 
 Use `yarn install` to download all of the dependencies needed to run the web app
-
-### `yarn start`
 
 Use `yarn start` to start the application
 
 ## List of Goals
 
+If you aren't sure where to look for to find the task, run
+
 ### Task 0:
 
 The Navigation Bar should be up and running but it's having a weird bug... for some reason when you click the button it isn't doing anything. Can you look into how to make sure the list opens properly?
 This might be useful: https://material-ui.com/components/menus/
+For the above link, you can look at direct code examples by clicking the `<>` icon under each example
 
 ### Task 1:
 
 Hmm, I'm not a big fan of the color on the menu. Could you pick another color to change it to?
+_note_ this is a pure css task
 
 ### Task 2:
 
@@ -37,8 +41,13 @@ It seems like our delete button for employees isn't working! When items are sele
 
 ### Task 6:
 
-We want users to be able to place orders after selecting items and for it to be stored in redux. Can you add a button for placing orders and create a redux action for placing orders?
+We want users to be able to place orders after selecting items and for it to be stored in redux. Can you add a button for placing orders for placing orders? Make sure to include a popup/modal for adding their name!
 
 ### Task 7:
 
-Can you create a page for the customers to view the orders they've placed?
+OH NO! TECH DEBT! Some idiot (it was me :( ) wrote some unpolished code and we should fix it up!
+Someone left some of the components to be rendered in line or through a normal function. Let's change those both into functional components to it's easier to read/understand!
+
+### Task 8:
+
+Can you create a page for the customers to view the orders they've placed

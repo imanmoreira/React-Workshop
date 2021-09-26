@@ -8,9 +8,9 @@ export const addMenuItem = createAction(
 
 export const deleteMenuItems = createAction(
   "menu/DELETE_MENU_ITEM",
-  (menuItems: MenuItem[]) => ({ menuItems })
+  (deleteItems: MenuItem[]) => ({ deleteItems })
 )();
-
-/**
- * **TODO** Task 6
- */
+export const placeOrder = createAction(
+  "menu/PLACE_ORDER",
+  (name: string, order: MenuItem[]) => ({ name, order })
+)();

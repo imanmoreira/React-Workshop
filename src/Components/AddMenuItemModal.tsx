@@ -1,8 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { Modal, TextField, Button, Typography } from "@material-ui/core";
 import { MenuItem } from "../model/types";
 import { connect } from "react-redux";
-import { AppState } from "../state/reducers/state";
 import { Dispatch } from "redux";
 import { addMenuItem } from "../state/actions/menuActions";
 import { withRouter, RouteComponentProps } from "react-router-dom";
@@ -30,109 +29,84 @@ interface AddMenuItemModalProps {
   visible: boolean;
 }
 
-interface AddMenuItemModalState {
-  formName: string;
-  formPrice: string;
-  errorText?: string;
-}
-
 type Props = RouteComponentProps & AddMenuItemModalProps;
 
-export class AddMenuItemModal extends React.Component<
-  Props,
-  AddMenuItemModalState
-> {
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      formName: "",
-      formPrice: "",
-      errorText: undefined,
-    };
-  }
-  renderPriceField() {
+export const AddMenuItemModal: React.FC<Props> = ({
+  handleClose,
+  handleSubmit,
+  visible,
+}) => {
+  const [formName, setFormName] = useState("");
+  const [formPrice, setFormPrice] = useState("");
+  const [errorText, setErrorText] = useState<string | undefined>(undefined);
+
+  const PriceField = () => {
     return (
       <TextField
         id="outlined-basic"
         label="Price"
         variant="outlined"
-        value={this.state.formPrice}
+        value={formPrice}
         onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-          this.setState({ formPrice: event.target.value })
+          setFormPrice(event.target.value)
         }
         placeholder="10"
         style={{ marginTop: 36, minWidth: 326 }}
       />
     );
-  }
+  };
 
-  renderNameTextField() {
+  const NameTextField = () => {
     return (
       <TextField
         id="outlined-basic"
         label="Name"
         variant="outlined"
-        value={this.state.formName}
+        value={formName}
         onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-          this.setState({ formName: event.target.value })
+          setFormName(event.target.value)
         }
         placeholder="Cupcakes"
         style={{ marginTop: 12, marginBottom: 12, minWidth: 326 }}
       />
     );
-  }
+  };
 
-  prepareToClose() {
-    this.setState({
-      formName: "",
-      formPrice: "",
-      errorText: undefined,
-    });
-    this.props.handleClose();
-  }
+  const prepareToClose = () => {
+    setFormName("");
+    setFormPrice("");
+    setErrorText(undefined);
+    handleClose();
+  };
 
-  handleSubmit() {
-    const price = Number(this.state.formPrice);
+  const submitPrice = () => {
+    const price = Number(formPrice);
     if (!price) {
-      this.setState({ errorText: "Price must be a valid number" });
-    } else if (!this.state.formName) {
-      this.setState({ errorText: "Name must not be empty" });
+      setErrorText("Price must be a valid number");
+    } else if (!formName) {
+      setErrorText("Name must not be empty");
     } else {
-      this.props.handleSubmit({ price, name: this.state.formName });
-      this.prepareToClose();
+      handleSubmit({ price, name: formName });
+      prepareToClose();
     }
-  }
-
-  render() {
-    /**
-     * **TODO** Task 3
-     */
-    return (
-      <Modal
-        style={{ outline: "none" }}
-        open={this.props.visible}
-        onClose={this.prepareToClose.bind(this)}
-        aria-labelledby="simple-modal-title"
-        aria-describedby="simple-modal-description"
-      >
-        <InnerSection>
-          <h2>Add a Menu Item</h2>
-          {this.renderNameTextField()}
-          {this.renderPriceField()}
-          {this.state.errorText && (
-            <Typography color="error">{this.state.errorText}</Typography>
-          )}
-          <Button
-            style={{ margin: "10pt" }}
-            onClick={this.handleSubmit.bind(this)}
-          >
-            Submit
-          </Button>
-        </InnerSection>
-      </Modal>
-    );
-  }
-}
+  };
+  /**
+   * **TODO** Task 3
+   */
+  return (
+    <Modal style={{ outline: "none" }} open={visible} onClose={prepareToClose}>
+      <InnerSection>
+        <h2>Add a Menu Item</h2>
+        <NameTextField />
+        <PriceField />
+        {errorText && <Typography color="error">{errorText}</Typography>}
+        <Button style={{ margin: "10pt" }} onClick={submitPrice}>
+          Submit
+        </Button>
+      </InnerSection>
+    </Modal>
+  );
+};
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   handleSubmit: (menuItem: MenuItem) => dispatch(addMenuItem(menuItem)),

@@ -2,14 +2,15 @@ import { MenuItem } from "../../model/types";
 import { MenuAction } from "../actions/";
 import produce from "immer";
 import { getType } from "typesafe-actions";
-import { addMenuItem, deleteMenuItems } from "../actions/menuActions";
-
-/**
- * **TODO** Task 6
- */
+import {
+  addMenuItem,
+  deleteMenuItems,
+  placeOrder,
+} from "../actions/menuActions";
 
 export interface MenuState {
   menuItems: MenuItem[];
+  customerOrders: { name: string; order: MenuItem[] }[];
 }
 
 const initialState: MenuState = {
@@ -17,6 +18,7 @@ const initialState: MenuState = {
     { name: "coffee", price: 10 },
     { name: "cookie", price: 12 },
   ],
+  customerOrders: [],
 };
 
 export const menuReducer = (
@@ -32,9 +34,17 @@ export const menuReducer = (
         return draft;
       }
       case getType(deleteMenuItems): {
-        /**
-         * **TODO** Task 5
-         */
+        const { deleteItems } = action.payload;
+        draft.menuItems.filter(
+          (item: MenuItem) =>
+            !deleteItems.reduce((acc, i) => i.name === item.name || acc, false)
+        );
+        return draft;
+      }
+      case getType(placeOrder): {
+        const { name, order } = action.payload;
+        draft.customerOrders.push({ name, order });
+        return draft;
       }
     }
   });

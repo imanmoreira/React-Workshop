@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   TableHead,
   TableRow,
@@ -25,7 +25,12 @@ import { connect } from "react-redux";
 import { AppState } from "../state/reducers/state";
 import { getMenuItems } from "../state/";
 import { AddMenuItem } from "../Components/AddMenuItemModal";
+import { Dispatch } from "redux";
+import { deleteMenuItems } from "../state/actions/menuActions";
 
+/**
+ * **TODO** TASK 1
+ */
 const MenuContainer = styled.div`
   min-height: 90vh;
   margin: 0 15% 0 15%;
@@ -37,30 +42,28 @@ const ButtonContainer = styled.div`
 
 interface ReduxMenuProps {
   menuItems: MenuItem[];
+  deleteItems: (deleteItems: MenuItem[]) => void; // a function that deletes a list of items from our "backend"
+  // also lowkey this function is untested so let me know if it doesn't work lmao
 }
 
 interface MenuProps {
   employeeView: true | undefined;
 }
 
-interface MenuState {
-  selectedItems: MenuItem[];
-  isModalVisible: boolean;
-}
-
 type Props = MenuProps & ReduxMenuProps;
 
-class MenuComponent extends React.Component<Props, MenuState> {
-  constructor(props: Props) {
-    super(props);
+const MenuComponent: React.FC<Props> = ({
+  employeeView,
+  menuItems,
+  deleteItems,
+}) => {
+  const [selectedItems, setSelectedItems] = useState([]);
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
-    this.state = {
-      selectedItems: [],
-      isModalVisible: false,
-    };
-  }
-
-  renderRow(menuItem: MenuItem) {
+  /**
+   * **TODO** TASK 7
+   */
+  const renderRow = (menuItem: MenuItem) => {
     /**
      * **TODO** Task 4
      */
@@ -82,9 +85,9 @@ class MenuComponent extends React.Component<Props, MenuState> {
         <TableCell align="right">{menuItem.price}</TableCell>
       </TableRow>
     );
-  }
+  };
 
-  renderToolBar(isEmployee: boolean, count: number) {
+  const renderToolBar = (isEmployee: boolean, count: number) => {
     const backColor = count ? "lightblue" : "white";
     return (
       <Toolbar style={{ backgroundColor: backColor }}>
@@ -97,12 +100,12 @@ class MenuComponent extends React.Component<Props, MenuState> {
             SandBucks Menu
           </Typography>
         )}
-        {isEmployee && this.renderEmployeeButtons(count)}
+        {isEmployee && renderEmployeeButtons(count)}
       </Toolbar>
     );
-  }
+  };
 
-  renderEmployeeButtons(count: number) {
+  const renderEmployeeButtons = (count: number) => {
     /**
      * **TODO** Task 5
      */
@@ -110,78 +113,70 @@ class MenuComponent extends React.Component<Props, MenuState> {
       <ButtonContainer>
         {count ? (
           <Tooltip title="Delete Selected Items">
-            <IconButton aria-label="delete">
+            <IconButton>
               <DeleteIcon />
             </IconButton>
           </Tooltip>
         ) : (
           <Tooltip title="Add Item">
-            <IconButton
-              aria-label="add"
-              onClick={() => this.setState({ isModalVisible: true })}
-            >
+            <IconButton onClick={() => setIsModalVisible(true)}>
               <AddIcon />
             </IconButton>
           </Tooltip>
         )}
       </ButtonContainer>
     );
-  }
+  };
 
-  render() {
-    const menuItems = this.props.menuItems.map(this.renderRow);
-    while (menuItems.length < 10) {
-      menuItems.push(
-        <TableRow>
-          <TableCell />
-          <TableCell component="th" scope="row" />
-          <TableCell />
-        </TableRow>
-      );
-    }
-    /**
-     * **TODO** TASK 1
-     */
-    return (
-      <>
-        <AddMenuItem
-          visible={this.state.isModalVisible}
-          handleClose={() => {
-            this.setState({ isModalVisible: false });
-          }}
-        ></AddMenuItem>
-        <MenuContainer>
-          <Paper>
-            {this.renderToolBar(
-              Boolean(this.props.employeeView),
-              this.state.selectedItems.length
-            )}
-            <TableContainer>
-              <Table aria-label="simple table">
-                <TableHead>
-                  <TableRow>
-                    <TableCell></TableCell>
-                    <TableCell align="center">Menu Item</TableCell>
-                    <TableCell align="right">Price</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>{menuItems}</TableBody>
-              </Table>
-            </TableContainer>
-          </Paper>
-        </MenuContainer>
-        {/**
-         * **TODO** Task 6
-         */}
-      </>
+  /**
+   * **TODO** TASK 7
+   */
+  const nodeMenuItems = menuItems.map(renderRow);
+  while (nodeMenuItems.length < 10) {
+    nodeMenuItems.push(
+      <TableRow>
+        <TableCell />
+        <TableCell component="th" scope="row" />
+        <TableCell />
+      </TableRow>
     );
   }
-}
+
+  /**
+   * **TODO** Task 6
+   */
+  return (
+    <>
+      <AddMenuItem
+        visible={isModalVisible}
+        handleClose={() => setIsModalVisible(false)}
+      />
+      <MenuContainer>
+        <Paper>
+          {renderToolBar(Boolean(employeeView), selectedItems.length)}
+          <TableContainer>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell></TableCell>
+                  <TableCell align="center">Menu Item</TableCell>
+                  <TableCell align="right">Price</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>{nodeMenuItems}</TableBody>
+            </Table>
+          </TableContainer>
+        </Paper>
+      </MenuContainer>
+    </>
+  );
+};
 
 const mapStateToProps = (state: AppState) => ({
   menuItems: getMenuItems(state),
 });
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  deleteItems: (menuItems: MenuItem[]) => dispatch(deleteMenuItems(menuItems)),
+});
 
-export const Menu = connect<ReduxMenuProps, {}, {}, AppState>(mapStateToProps)(
-  MenuComponent
-);
+export const Menu = connect(mapStateToProps, mapDispatchToProps)(MenuComponent);

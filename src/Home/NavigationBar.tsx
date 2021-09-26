@@ -11,21 +11,16 @@ const HeaderStyle = styled.div`
   background-color: #1974d3;
 `;
 
-class HeaderComponent extends React.Component<any> {
-  constructor(props: any) {
-    super(props);
-  }
-  render() {
-    /**
-     * **TODO** Task 2
-     */
-    return (
-      <HeaderStyle>
-        <MenuButton text="Employee" menuOptions={["Menu"]} />
-        <MenuButton text="Customer" menuOptions={["Menu", "Orders"]} />
-      </HeaderStyle>
-    );
-  }
-}
+const HeaderComponent: React.FC<any> = () => {
+  /**
+   * **TODO** Task 2
+   */
+  return (
+    <HeaderStyle>
+      <MenuButton text="Employee" menuOptions={["Menu"]} />
+      <MenuButton text="Customer" menuOptions={["Menu", "Orders"]} />
+    </HeaderStyle>
+  );
+};
 
 export const Header = HeaderComponent;

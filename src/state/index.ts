@@ -4,6 +4,6 @@ import { MenuItem } from "../model/types";
 export const getMenuItems = (state: AppState): MenuItem[] =>
   state.menu.menuItems;
 
-/**
- * **TODO** Task 7
- */
+export const getCustomerOrders = (
+  state: AppState
+): { name: string; order: MenuItem[] }[] => state.menu.customerOrders;

@@ -34,7 +34,7 @@ export const App = ({
                 path="/employee/menu"
                 render={() => <Menu employeeView={true}></Menu>}
               />
-              <Route path="/customer/orders" component={Orders} />
+              <Route path="/employee/orders" component={Orders} />
               <Route path="/" component={Home} />
             </Switch>
           </PageContainer>

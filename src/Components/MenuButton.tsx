@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Menu, MenuItem } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
@@ -11,63 +11,54 @@ interface MenuButtonState {
   anchorEl: null | HTMLElement;
 }
 
-class MenuButtonComponent extends React.Component<
-  MenuButtonProps,
-  MenuButtonState
-> {
-  constructor(props: MenuButtonProps) {
-    super(props);
-
-    this.state = {
-      anchorEl: null,
-    };
-  }
-  processMenuItems(options: string[]) {
+const MenuButtonComponent: React.FC<MenuButtonProps> = ({
+  text,
+  menuOptions,
+}) => {
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const processMenuItems = (options: string[]) => {
     return options.map((option) => (
       <MenuItem
         component={Link}
-        to={`/${this.props.text.toLowerCase()}/${option.toLowerCase()}`}
+        to={`/${text.toLowerCase()}/${option.toLowerCase()}`}
       >
         {option}
       </MenuItem>
     ));
-  }
+  };
 
-  handleClick(event: React.MouseEvent<HTMLButtonElement>) {
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     /**
      * **TODO** TASK 0
      */
-  }
 
-  handleClose() {
-    this.setState({
-      anchorEl: null,
-    });
-  }
+    setAnchorEl(event.currentTarget);
+  };
 
-  render() {
-    return (
-      <>
-        <Button
-          aria-controls="simple-menu"
-          aria-haspopup="true"
-          style={{ color: "white", margin: 1 }}
-          onClick={this.handleClick.bind(this)}
-        >
-          {this.props.text}
-        </Button>
-        <Menu
-          id="simple-menu"
-          anchorEl={this.state.anchorEl}
-          keepMounted
-          open={Boolean(this.state.anchorEl)}
-          onClose={this.handleClose.bind(this)}
-        >
-          {this.processMenuItems(this.props.menuOptions)}
-        </Menu>
-      </>
-    );
-  }
-}
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  return (
+    <>
+      <Button
+        aria-controls="simple-menu"
+        aria-haspopup="true"
+        style={{ color: "white", margin: 1 }}
+        onClick={handleClick}
+      >
+        {text}
+      </Button>
+      <Menu
+        id="simple-menu"
+        anchorEl={anchorEl}
+        keepMounted
+        open={Boolean(anchorEl)}
+        onClose={handleClose}
+      >
+        {processMenuItems(menuOptions)}
+      </Menu>
+    </>
+  );
+};
 
 export const MenuButton = MenuButtonComponent;

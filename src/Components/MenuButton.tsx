@@ -31,8 +31,6 @@ const MenuButtonComponent: React.FC<MenuButtonProps> = ({
     /**
      * **TODO** TASK 0
      */
-
-    setAnchorEl(event.currentTarget);
   };
 
   const handleClose = () => {

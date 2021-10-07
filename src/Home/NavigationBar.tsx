@@ -17,8 +17,8 @@ const HeaderComponent: React.FC<any> = () => {
    */
   return (
     <HeaderStyle>
-      <MenuButton text="Employee" menuOptions={["Menu"]} />
-      <MenuButton text="Customer" menuOptions={["Menu", "Orders"]} />
+      <MenuButton text="Employee" menuOptions={["Menu", "Orders"]} />
+      <MenuButton text="Customer" menuOptions={["Menu"]} />
     </HeaderStyle>
   );
 };
